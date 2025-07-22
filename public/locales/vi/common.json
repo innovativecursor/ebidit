@@ -1,0 +1,23 @@
+
+{
+  "business_enquiry": "Biểu Mẫu Liên Hệ Kinh Doanh",
+  "first_name": "Tên",
+  "last_name": "Họ",
+  "business_name": "Tên Doanh Nghiệp",
+  "business_type": "Loại Hình Doanh Nghiệp",
+  "address_line1": "Địa Chỉ Dòng 1",
+  "address_line2": "Địa Chỉ Dòng 2",
+  "city": "Thành Phố",
+  "state": "Tỉnh/Bang",
+  "country": "Quốc Gia",
+  "postal_code": "Mã Bưu Chính",
+  "name": "Tên Liên Hệ",
+  "surname": "Họ",
+  "designation": "Chức Danh",
+  "phone": "Số Điện Thoại",
+  "email": "Địa Chỉ Email",
+  "primary_business_activity": "Hoạt Động Kinh Doanh Chính",
+  "submit": "Gửi",
+  "thank_you": "Cảm ơn bạn đã gửi thông tin!"
+}
+

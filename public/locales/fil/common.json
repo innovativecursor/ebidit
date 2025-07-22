@@ -1,0 +1,21 @@
+{
+  "business_enquiry": "Form ng Pagtatanong sa Negosyo",
+  "first_name": "Pangalan",
+  "last_name": "Apelyido",
+  "business_name": "Pangalan ng Negosyo",
+  "business_type": "Uri ng Negosyo",
+  "address_line1": "Address Linya 1",
+  "address_line2": "Address Linya 2",
+  "city": "Lungsod",
+  "state": "Estado",
+  "country": "Bansa",
+  "postal_code": "Postal Code",
+  "name": "Pangalan ng Contact",
+  "surname": "Apelyido",
+  "designation": "Katayuan",
+  "phone": "Numero ng Telepono",
+  "email": "Email Address",
+  "primary_business_activity": "Pangunahing Gawain ng Negosyo",
+  "submit": "Isumite",
+  "thank_you": "Salamat sa iyong pagsusumite!"
+}

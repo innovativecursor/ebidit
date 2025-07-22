@@ -1,0 +1,21 @@
+{
+  "business_enquiry": "แบบฟอร์มสอบถามธุรกิจ",
+  "first_name": "ชื่อ",
+  "last_name": "นามสกุล",
+  "business_name": "ชื่อธุรกิจ",
+  "business_type": "ประเภทธุรกิจ",
+  "address_line1": "ที่อยู่ บรรทัดที่ 1",
+  "address_line2": "ที่อยู่ บรรทัดที่ 2",
+  "city": "เมือง",
+  "state": "รัฐ/จังหวัด",
+  "country": "ประเทศ",
+  "postal_code": "รหัสไปรษณีย์",
+  "name": "ชื่อผู้ติดต่อ",
+  "surname": "นามสกุล",
+  "designation": "ตำแหน่ง",
+  "phone": "หมายเลขโทรศัพท์",
+  "email": "อีเมล",
+  "primary_business_activity": "กิจกรรมทางธุรกิจหลัก",
+  "submit": "ส่ง",
+  "thank_you": "ขอบคุณสำหรับการส่งข้อมูล!"
+}
