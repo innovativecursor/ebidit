@@ -7,10 +7,13 @@ import Lottie from 'lottie-react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
-import { Globe, User, Building2, Mail, MapPin, Briefcase } from 'lucide-react';
+import {
+  Globe, User, Mail, MapPin, Briefcase, Building2, LocateIcon,
+} from 'lucide-react';
 
-import animationData from '../lottie/business.json';
+import animationData from '../lottie/bidding.json';
 import logo from './images/E-bid_red.png';
+import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n/i18n';
 
 const languages = [
@@ -23,175 +26,200 @@ const languages = [
 ];
 
 const BusinessEnquiryForm = () => {
+  const { t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     business_name: '',
     business_type: '',
-    address: '',
-    contact: '',
-    email: '',
-    activity: '',
+    business_address: {
+      address_line1: '',
+      address_line2: '',
+      city: '',
+      state: '',
+      country: '',
+      postal_code: '',
+    },
+    contact_info: {
+      name: '',
+      designation: '',
+      phone: '',
+      email: '',
+    },
+    primary_business_activity: '',
   });
+
+  const handleInputChange = (section, key, value) => {
+    if (section === 'business_address' || section === 'contact_info') {
+      setFormData((prev) => ({
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [key]: value,
+        },
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted(true);
-    // submit logic here
+    console.log(formData);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 flex items-center justify-center p-4">
-      <div className="absolute top-6 left-6 bg-white/20 backdrop-blur-lg px-4 py-2 rounded-lg shadow-lg z-20">
-        <Image src={logo} alt="E-Bid Logo" width={100} height={40} />
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 flex flex-col p-4">
+      {/* Logo */}
+      <div className="flex justify-center items-center py-4 sm:py-6 px-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white/10 px-6 py-3 rounded-xl shadow-lg backdrop-blur-md border border-white/20"
+        >
+          <Image
+            src={logo}
+            alt="E-Bid Logo"
+            className="mx-auto max-w-[160px] w-full h-auto"
+          />
+        </motion.div>
       </div>
 
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 backdrop-blur-md bg-white/10 p-6 md:p-10 rounded-2xl shadow-xl relative overflow-hidden z-10">
-
-        {/* Left Column - Animation */}
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-[90rem] w-full mx-auto bg-white/10 px-4 py-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl text-white backdrop-blur-lg"
+      >
+        {/* Column 1 */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col justify-center items-center text-white"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="col-span-1 flex flex-col items-center justify-center text-center space-y-4"
         >
-          <Lottie animationData={animationData} loop={true} className="w-full h-72" />
-          <h2 className="text-3xl font-bold mt-4">Grow Your Business</h2>
-          <p className="text-sm text-gray-300 mt-2 text-center">
-            Fill out this enquiry form to connect with us and unlock new opportunities.
-          </p>
+          <Lottie animationData={animationData} loop className="w-full h-30 sm:h-50 md:h-70" />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
+            {t('Make_your')} <span className="text-red-600">BID</span>{t(' with')}
+          </h2>
+          <Image src={logo} alt='logo' width={180} className='my-4' />
+          <div className="relative mt-2 w-full max-w-[200px]">
+            <Globe className="absolute left-2 top-2 text-white" size={16} />
+            <select
+              value={selectedLanguage}
+              onChange={(e) => {
+                setSelectedLanguage(e.target.value);
+                i18n.changeLanguage(e.target.value);
+              }}
+              className="w-full pl-6 pr-3 py-1 rounded bg-gray-700 text-white text-sm border border-white/20"
+            >
+              {languages.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.label}
+                </option>
+              ))}
+            </select>
+          </div>
         </motion.div>
 
-        {/* Right Column - Form */}
-        <motion.form
-          initial={{ opacity: 0, x: 30 }}
+        {/* Column 2 */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          onSubmit={handleSubmit}
-          className="space-y-4 text-white"
+          transition={{ delay: 0.2 }}
+          className="space-y-4"
         >
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-xl font-semibold">Business Enquiry</h3>
-            <div className="relative">
-              <Globe className="absolute left-2 top-2 text-white" size={16} />
-              <select
-                value={selectedLanguage}
-                onChange={(e) => {
-                  setSelectedLanguage(e.target.value);
-                  i18n.changeLanguage(e.target.value);
-                }}
-                className="pl-6 pr-3 py-1 rounded bg-white/10 text-white text-sm border border-white/20"
-              >
-                {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
+          <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2">{t('Business_Details')}</h3>
+          <FloatingInput icon={<Building2 size={18} />} placeholder={t('business_name')} value={formData.business_name} onChange={(e) => handleInputChange(null, 'business_name', e.target.value)} />
+          <FloatingInput icon={<Briefcase size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} />
+          <FloatingInput icon={<MapPin size={18} />} placeholder={t('address_line1')} value={formData.business_address.address_line1} onChange={(e) => handleInputChange('business_address', 'address_line1', e.target.value)} />
+          <FloatingInput icon={<MapPin size={18} />} placeholder={t('address_line2')} value={formData.business_address.address_line2} onChange={(e) => handleInputChange('business_address', 'address_line2', e.target.value)} />
+          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('city')} value={formData.business_address.city} onChange={(e) => handleInputChange('business_address', 'city', e.target.value)} />
+          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('state')} value={formData.business_address.state} onChange={(e) => handleInputChange('business_address', 'state', e.target.value)} />
+          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('country')} value={formData.business_address.country} onChange={(e) => handleInputChange('business_address', 'country', e.target.value)} />
+          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('postal_code')} value={formData.business_address.postal_code} onChange={(e) => handleInputChange('business_address', 'postal_code', e.target.value)} />
+        </motion.div>
 
-          <div className="relative">
-            <User className="absolute left-3 top-3 text-white" size={18} />
-            <input
-              type="text"
-              name="business_name"
-              value={formData.business_name}
-              onChange={(e) => setFormData({ ...formData, business_name: e.target.value })}
-              required
-              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
-            />
-          </div>
-
-          <div className="relative">
-            <Building2 className="absolute left-3 top-3 text-white" size={18} />
-            <input
-              type="text"
-              name="business_type"
-              value={formData.business_type}
-              onChange={(e) => setFormData({ ...formData, business_type: e.target.value })}
-              required
-              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
-            />
-          </div>
-
-          <div className="relative">
-            <MapPin className="absolute left-3 top-3 text-white" size={18} />
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              required
-              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
-            />
-          </div>
-
-          <div className="relative">
-            <Mail className="absolute left-3 top-3 text-white" size={18} />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
-            />
-          </div>
-
-          <div className="relative">
+        {/* Column 3 */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2 }}
+          className="space-y-4"
+        >
+          <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2">{t('Personal_Details')}</h3>
+          <FloatingInput icon={<User size={18} />} placeholder={t('name')} value={formData.contact_info.name} onChange={(e) => handleInputChange('contact_info', 'name', e.target.value)} />
+          <FloatingInput icon={<Briefcase size={18} />} placeholder={t('designation')} value={formData.contact_info.designation} onChange={(e) => handleInputChange('contact_info', 'designation', e.target.value)} />
+          <div className="relative w-full">
             <PhoneInput
               country={'in'}
-              value={formData.contact}
-              onChange={(phone) => setFormData({ ...formData, contact: phone })}
+              value={formData.contact_info.phone}
+              onChange={(phone) => handleInputChange('contact_info', 'phone', phone)}
               inputStyle={{
                 width: '100%',
                 paddingLeft: '44px',
                 backgroundColor: 'transparent',
                 border: '1px solid rgba(255,255,255,0.2)',
                 borderRadius: '0.5rem',
-                color: 'white',
+                color: 'gray',
               }}
-              buttonStyle={{
-                backgroundColor: 'transparent',
-                border: 'none',
-              }}
+              buttonStyle={{ backgroundColor: 'transparent', border: 'none' }}
               containerStyle={{ width: '100%' }}
             />
           </div>
-
+          <FloatingInput icon={<Mail size={18} />} placeholder={t('email')} value={formData.contact_info.email} onChange={(e) => handleInputChange('contact_info', 'email', e.target.value)} type="email" />
           <div className="relative">
             <Briefcase className="absolute left-3 top-3 text-white" size={18} />
             <textarea
-              name="activity"
-              value={formData.activity}
-              onChange={(e) => setFormData({ ...formData, activity: e.target.value })}
+              name="primary_business_activity"
               rows="3"
+              placeholder={t('primary_business_activity')}
+              value={formData.primary_business_activity}
+              onChange={(e) => handleInputChange(null, 'primary_business_activity', e.target.value)}
               required
-              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
+              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-300 focus:scale-105 transition-all duration-150"
             ></textarea>
           </div>
+        </motion.div>
 
+        {/* Submit Button */}
+        <div className="col-span-1 sm:col-span-2 md:col-span-3 flex justify-center px-4">
           <button
             type="submit"
-            className="w-full py-2 mt-2 bg-red-600 hover:bg-red-500 rounded-lg text-white font-semibold transition"
+            className="px-10 py-3 w-full max-w-xs bg-red-500 hover:bg-red-400 text-white rounded-xl font-semibold text-lg shadow-md transition duration-200"
           >
-            Register
+            {t('Register')}
           </button>
+        </div>
+      </form>
 
-          {formSubmitted && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="text-center mt-4 text-green-300 font-medium"
-            >
-              Thank you! We’ll get back to you shortly.
-            </motion.div>
-          )}
-        </motion.form>
-      </div>
+      {/* Success Message */}
+      {formSubmitted && (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="text-center mt-4 text-green-300 font-medium"
+        >
+          🎉 {t('success_message')}
+        </motion.div>
+      )}
     </div>
   );
 };
+
+// Floating input field
+const FloatingInput = ({ icon, ...props }) => (
+  <div className="relative">
+    <div className="absolute left-3 top-3 text-white">{icon}</div>
+    <input
+      {...props}
+      className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
+    />
+  </div>
+);
 
 export default BusinessEnquiryForm;

@@ -12,14 +12,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Ebidit",
+  title: "EBIDIT",
   description: "A product by Inno Cursor",
 };
 
-// 👇 Import the i18n provider
+// Import the i18n provider
 import { dir } from 'i18next';
-import { languages } from '../../i18n/settings'; // We'll define this next
-import { I18nProvider } from '../../i18n/provider'; // You’ll create this file
+import { languages } from '../../i18n/settings'; 
+import { I18nProvider } from '../../i18n/provider'; 
 
 export function generateStaticParams() {
   return languages.map((lng) => ({ lng }));

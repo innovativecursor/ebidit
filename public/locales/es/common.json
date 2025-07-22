@@ -1,21 +1,21 @@
 {
-  "business_enquiry": "Formulario de Consulta Comercial",
-  "first_name": "Nombre",
-  "last_name": "Apellido",
-  "business_name": "Nombre de la Empresa",
-  "business_type": "Tipo de Empresa",
+  "Make_your_bid_with": "Haz tu OFERTA con",
+  "business_name": "Nombre del Negocio",
+  "business_type": "Tipo de Negocio (LLC, Corp, etc.)",
   "address_line1": "Dirección Línea 1",
   "address_line2": "Dirección Línea 2",
   "city": "Ciudad",
   "state": "Estado",
   "country": "País",
   "postal_code": "Código Postal",
-  "name": "Nombre del Contacto",
-  "surname": "Apellido",
+  "name": "Tu Nombre",
   "designation": "Cargo",
   "phone": "Número de Teléfono",
   "email": "Correo Electrónico",
   "primary_business_activity": "Actividad Comercial Principal",
-  "submit": "Enviar",
-  "thank_you": "¡Gracias por su envío!"
+  "Register": "Registrar",
+  "Business_Details": "Detalles de la empresa",
+  "Personal_Details": "Detalles personales",
+  "success_message": "¡Enviado con éxito!"
+
 }
