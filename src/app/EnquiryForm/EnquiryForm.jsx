@@ -34,6 +34,8 @@ const BusinessEnquiryForm = () => {
   const [formData, setFormData] = useState({
     business_name: '',
     business_type: '',
+    role_of_business: '',
+    industry_of_business: '',
     business_address: {
       address_line1: '',
       address_line2: '',
@@ -72,16 +74,15 @@ const BusinessEnquiryForm = () => {
     e.preventDefault();
     setFormSubmitted(true);
     try {
-    console.log(formData); // you can replace this with an actual API call
-    toast.success('Business registered successfully');
-  } catch (error) {
-    toast.error('Failed to save business');
-  }
-
+      console.log(formData); // you can replace this with an actual API call
+      toast.success('Business registered successfully');
+    } catch (error) {
+      toast.error('Failed to save business');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col p-4">
+    <div className="min-h-screen bg-white/90 backdrop-blur-md shadow-md flex flex-col p-4">
       {/* Logo */}
       <div className=" flex justify-center items-center py-4 sm:py-6 px-4">
         <motion.div
@@ -149,6 +150,9 @@ const BusinessEnquiryForm = () => {
           <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('state')} value={formData.business_address.state} onChange={(e) => handleInputChange('business_address', 'state', e.target.value)} />
           <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('country')} value={formData.business_address.country} onChange={(e) => handleInputChange('business_address', 'country', e.target.value)} />
           <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('postal_code')} value={formData.business_address.postal_code} onChange={(e) => handleInputChange('business_address', 'postal_code', e.target.value)} />
+        <FloatingInput icon={<Briefcase size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} />
+
+          {/* New Field: Role of Business */}
         </motion.div>
 
         {/* Column 3 */}
@@ -158,20 +162,62 @@ const BusinessEnquiryForm = () => {
           transition={{ delay: 0.2 }}
           className="space-y-4 mt-0 md:mt-9.5"
         >
-                <FloatingInput icon={<Briefcase size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} />
-              <div className="relative">
-                <Briefcase className="absolute left-3 top-3 text-white" size={18} />
-                <textarea
-                  name="primary_business_activity"
-                  rows="3"
-                  placeholder={t('primary_business_activity')}
-                  value={formData.primary_business_activity}
-                  onChange={(e) => handleInputChange(null, 'primary_business_activity', e.target.value)}
-                  required
-                  className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-300 focus:scale-105 transition-all duration-150"
-                ></textarea>
-              </div>
-          <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2">{t('Personal_Details')}</h3>
+          <div className="relative">
+            <Briefcase className="absolute left-3 top-3 text-white" size={18} />
+            <FloatingInput
+              name="primary_business_activity"
+              rows="3"
+              placeholder={t('primary_business_activity')}
+              value={formData.primary_business_activity}
+              onChange={(e) => handleInputChange(null, 'primary_business_activity', e.target.value)}
+              required
+              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-300 focus:scale-105 transition-all duration-150"
+            />
+          </div>
+          <div className="relative">
+            <Briefcase className="absolute left-3 top-3 text-white" size={18} />
+            <select
+              value={formData.role_of_business}
+              onChange={(e) => handleInputChange(null, 'role_of_business', e.target.value)}
+              className="w-full pl-10 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400"
+            >
+              <option value="">{t('role_of_business')}</option>
+              <option value="Manufacturer">{t('Manufacturer')}</option>
+              <option value="Supplier">{t('Supplier')}</option>
+              <option value="Exporter">{t('Exporter')}</option>
+              <option value="Impoter">{t('Impoter')}</option>
+              <option value="Wholesaler">{t('Wholesaler')}</option>
+              <option value="Distributor">{t('Distributor')}</option>
+              <option value="Retailer">{t('Retailer')}</option>
+              <option value="Trader">{t('Trader')}</option>
+              <option value="Other">{t('Other')}</option> 
+            </select>
+          </div>
+
+          {/* New Field: Industry of Business */}
+
+          <div className="relative">
+            <Briefcase className="absolute left-3 top-3 text-white" size={18} />
+            <select
+              value={formData.industry_of_business}
+              onChange={(e) => handleInputChange(null, 'industry_of_business', e.target.value)}
+              className="w-full pl-10 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400"
+              >
+              <option value="">{t('industry_of_business')}</option>
+              <option value="Agriculture">{t('Agriculture')}</option>
+              <option value="FMCG">{t('FMCG')}</option>
+              <option value="Construction">{t('Construction')}</option>
+              <option value="Textiles">{t('Textiles')}</option>
+              <option value="Automotive">{t('Automotive')}</option>
+              <option value="Food_&_Beverages">{t('Food_&_Beverages')}</option>
+              <option value="Pharmaceuticals">{t('Pharmaceuticals')}</option>
+              <option value="Electronics">{t('Electronics')}</option>
+              <option value="Furniture_&_Wood">{t('Furniture_&_Wood')}</option>
+              <option value="Chemicals">{t('Chemicals')}</option>
+              <option value="Other">{t('Other')}</option>
+            </select>
+          </div>
+          <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2 md:mt-13">{t('Personal_Details')}</h3>
           <FloatingInput icon={<User size={18} />} placeholder={t('name')} value={formData.contact_info.name} onChange={(e) => handleInputChange('contact_info', 'name', e.target.value)} />
           <FloatingInput icon={<Briefcase size={18} />} placeholder={t('designation')} value={formData.contact_info.designation} onChange={(e) => handleInputChange('contact_info', 'designation', e.target.value)} />
           <div className="relative w-full">
@@ -233,7 +279,6 @@ const BusinessEnquiryForm = () => {
           },
         }}
       />
-
     </div>
   );
 };
