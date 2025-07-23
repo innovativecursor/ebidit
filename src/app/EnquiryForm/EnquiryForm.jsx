@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import Lottie from 'lottie-react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import { toast, Toaster } from 'react-hot-toast';
 
 import {
   Globe, User, Mail, MapPin, Briefcase, Building2, LocateIcon,
@@ -23,6 +24,7 @@ const languages = [
   { code: 'vi', label: '🇻🇳 Tiếng Việt' },
   { code: 'th', label: '🇹🇭 ไทย' },
   { code: 'id', label: '🇮🇩 Bahasa' },
+  { code: 'zh', label: '🇮🇩 Chinese (Pinyin)' },
 ];
 
 const BusinessEnquiryForm = () => {
@@ -69,18 +71,24 @@ const BusinessEnquiryForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted(true);
-    console.log(formData);
+    try {
+    console.log(formData); // you can replace this with an actual API call
+    toast.success('Business registered successfully');
+  } catch (error) {
+    toast.error('Failed to save business');
+  }
+
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 flex flex-col p-4">
+    <div className="min-h-screen bg-white flex flex-col p-4">
       {/* Logo */}
-      <div className="flex justify-center items-center py-4 sm:py-6 px-4">
+      <div className=" flex justify-center items-center py-4 sm:py-6 px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/10 px-6 py-3 rounded-xl shadow-lg backdrop-blur-md border border-white/20"
+          className="bg-gradient-to-br from-black via-gray-900 to-gray-800 bg-white/10 px-6 py-3 rounded-xl shadow-lg backdrop-blur-md border border-white/20"
         >
           <Image
             src={logo}
@@ -93,7 +101,7 @@ const BusinessEnquiryForm = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-[90rem] w-full mx-auto bg-white/10 px-4 py-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl text-white backdrop-blur-lg"
+        className="bg-gradient-to-br from-black via-gray-900 to-gray-800 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-[90rem] w-full mx-auto bg-white/10 px-4 py-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl text-white backdrop-blur-lg"
       >
         {/* Column 1 */}
         <motion.div
@@ -104,7 +112,7 @@ const BusinessEnquiryForm = () => {
         >
           <Lottie animationData={animationData} loop className="w-full h-30 sm:h-50 md:h-70" />
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
-            {t('Make_your')} <span className="text-red-600">BID</span>{t(' with')}
+            {t('Make_your')} <span className="text-red-600 pr-1">BID</span>{t(' with')}
           </h2>
           <Image src={logo} alt='logo' width={180} className='my-4' />
           <div className="relative mt-2 w-full max-w-[200px]">
@@ -135,7 +143,6 @@ const BusinessEnquiryForm = () => {
         >
           <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2">{t('Business_Details')}</h3>
           <FloatingInput icon={<Building2 size={18} />} placeholder={t('business_name')} value={formData.business_name} onChange={(e) => handleInputChange(null, 'business_name', e.target.value)} />
-          <FloatingInput icon={<Briefcase size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} />
           <FloatingInput icon={<MapPin size={18} />} placeholder={t('address_line1')} value={formData.business_address.address_line1} onChange={(e) => handleInputChange('business_address', 'address_line1', e.target.value)} />
           <FloatingInput icon={<MapPin size={18} />} placeholder={t('address_line2')} value={formData.business_address.address_line2} onChange={(e) => handleInputChange('business_address', 'address_line2', e.target.value)} />
           <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('city')} value={formData.business_address.city} onChange={(e) => handleInputChange('business_address', 'city', e.target.value)} />
@@ -149,8 +156,21 @@ const BusinessEnquiryForm = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="space-y-4"
+          className="space-y-4 mt-0 md:mt-9.5"
         >
+                <FloatingInput icon={<Briefcase size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} />
+              <div className="relative">
+                <Briefcase className="absolute left-3 top-3 text-white" size={18} />
+                <textarea
+                  name="primary_business_activity"
+                  rows="3"
+                  placeholder={t('primary_business_activity')}
+                  value={formData.primary_business_activity}
+                  onChange={(e) => handleInputChange(null, 'primary_business_activity', e.target.value)}
+                  required
+                  className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-300 focus:scale-105 transition-all duration-150"
+                ></textarea>
+              </div>
           <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2">{t('Personal_Details')}</h3>
           <FloatingInput icon={<User size={18} />} placeholder={t('name')} value={formData.contact_info.name} onChange={(e) => handleInputChange('contact_info', 'name', e.target.value)} />
           <FloatingInput icon={<Briefcase size={18} />} placeholder={t('designation')} value={formData.contact_info.designation} onChange={(e) => handleInputChange('contact_info', 'designation', e.target.value)} />
@@ -165,25 +185,13 @@ const BusinessEnquiryForm = () => {
                 backgroundColor: 'transparent',
                 border: '1px solid rgba(255,255,255,0.2)',
                 borderRadius: '0.5rem',
-                color: 'gray',
+                color: 'white',
               }}
               buttonStyle={{ backgroundColor: 'transparent', border: 'none' }}
               containerStyle={{ width: '100%' }}
             />
           </div>
           <FloatingInput icon={<Mail size={18} />} placeholder={t('email')} value={formData.contact_info.email} onChange={(e) => handleInputChange('contact_info', 'email', e.target.value)} type="email" />
-          <div className="relative">
-            <Briefcase className="absolute left-3 top-3 text-white" size={18} />
-            <textarea
-              name="primary_business_activity"
-              rows="3"
-              placeholder={t('primary_business_activity')}
-              value={formData.primary_business_activity}
-              onChange={(e) => handleInputChange(null, 'primary_business_activity', e.target.value)}
-              required
-              className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-300 focus:scale-105 transition-all duration-150"
-            ></textarea>
-          </div>
         </motion.div>
 
         {/* Submit Button */}
@@ -204,9 +212,28 @@ const BusinessEnquiryForm = () => {
           animate={{ scale: 1 }}
           className="text-center mt-4 text-green-300 font-medium"
         >
-          🎉 {t('success_message')}
+          {t('success_message')}
         </motion.div>
       )}
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: '#1f1f1f',
+            color: '#fff',
+            fontWeight: 'bold',
+            padding: '12px 20px',
+            borderRadius: '12px',
+          },
+          success: {
+            icon: '✅',
+          },
+          error: {
+            icon: '❌',
+          },
+        }}
+      />
+
     </div>
   );
 };

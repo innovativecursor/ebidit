@@ -1,6 +1,6 @@
 {
-  "Make_your": "Make your",
-  "with": "with",
+  "Make_your": "Connect",
+  " with": "Transform",
   "business_name": "Business Name",
   "business_type": "Business Type (LLC, Corp, etc.)",
   "address_line1": "Address Line 1",
@@ -17,6 +17,6 @@
   "Register": "Register",
   "Business_Details": "Business Details",
   "Personal_Details": "Personal Details",
-  "success_message": "Successfully submitted!"
+  "success_message": "Business registered successfully"
 
 }

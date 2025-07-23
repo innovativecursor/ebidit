@@ -1,0 +1,20 @@
+{
+  "Make_your": "Ti jiao nin de",
+  "with": " shen qing",
+  "Business_Details": "Qi ye xin xi",
+  "Personal_Details": "Ge ren xin xi",
+  "business_name": "Qi ye ming cheng",
+  "business_type": "Qi ye lei xing",
+  "address_line1": "Di zhi hang yi",
+  "address_line2": "Di zhi hang er",
+  "city": "Cheng shi",
+  "state": "Sheng / Zhou",
+  "country": "Guo jia",
+  "postal_code": "You zheng bian ma",
+  "name": "Xing ming",
+  "designation": "Zhi wei",
+  "email": "Dian zi you jian",
+  "primary_business_activity": "Zhu yao ye wu huo dong",
+  "Register": "Zhu ce",
+  "success_message": "Nin de xin xi yi cheng gong ti jiao! Wo men jiang jin kuai yu nin lian xi."
+}
