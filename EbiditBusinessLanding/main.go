@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 
@@ -19,6 +20,14 @@ func main() {
 	db.ConnectMongo(os.Getenv("MONGO_URI"))
 
 	router := gin.Default()
+
+	router.Use(cors.New(cors.Config{
+		AllowAllOrigins:  true, // ✅ This allows requests from any origin
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		AllowCredentials: true,
+	}))
+
 	router.POST("/api/business", handler.SaveBusiness)
 
 	port := os.Getenv("PORT")
