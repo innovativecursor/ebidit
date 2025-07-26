@@ -27,15 +27,15 @@ const languages = [
   { code: 'zh', label: '🇮🇩 Chinese (Pinyin)' },
 ];
 
-const BusinessEnquiryForm = () => {
+const EnquiryForm = () => {
   const { t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     business_name: '',
     business_type: '',
-    role_of_business: '',
-    industry_of_business: '',
+    business_role: '',
+    business_industry: '',
     business_address: {
       address_line1: '',
       address_line2: '',
@@ -70,16 +70,33 @@ const BusinessEnquiryForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    try {
-      console.log(formData); // you can replace this with an actual API call
-      toast.success('Business registered successfully');
-    } catch (error) {
-      toast.error('Failed to save business');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setFormSubmitted(false);
+
+  try {
+    const response = await fetch("http://localhost:8080/api/business", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Failed to submit form");
     }
-  };
+
+    const result = await response.json();
+    console.log("API Response:", result);
+    toast.success('Business registered successfully!');
+    setFormSubmitted(true);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast.error(error.message || 'Failed to save business');
+  }
+};
 
   return (
     <div className="min-h-screen bg-white/90 backdrop-blur-md shadow-md flex flex-col p-4">
@@ -177,8 +194,8 @@ const BusinessEnquiryForm = () => {
           <div className="relative">
             <Briefcase className="absolute left-3 top-3 text-white" size={18} />
             <select
-              value={formData.role_of_business}
-              onChange={(e) => handleInputChange(null, 'role_of_business', e.target.value)}
+              value={formData.business_role}
+              onChange={(e) => handleInputChange(null, 'business_role', e.target.value)}
               className="w-full pl-10 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400"
             >
               <option value="">{t('role_of_business')}</option>
@@ -199,8 +216,8 @@ const BusinessEnquiryForm = () => {
           <div className="relative">
             <Briefcase className="absolute left-3 top-3 text-white" size={18} />
             <select
-              value={formData.industry_of_business}
-              onChange={(e) => handleInputChange(null, 'industry_of_business', e.target.value)}
+              value={formData.business_industry}
+              onChange={(e) => handleInputChange(null, 'business_industry', e.target.value)}
               className="w-full pl-10 py-2 bg-gray-800 text-white border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400"
               >
               <option value="">{t('industry_of_business')}</option>
@@ -294,4 +311,4 @@ const FloatingInput = ({ icon, ...props }) => (
   </div>
 );
 
-export default BusinessEnquiryForm;
+export default EnquiryForm;
