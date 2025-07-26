@@ -53,6 +53,8 @@ const EnquiryForm = () => {
     primary_business_activity: '',
   });
 
+    // console.log("API URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
+
   const handleInputChange = (section, key, value) => {
     if (section === 'business_address' || section === 'contact_info') {
       setFormData((prev) => ({
@@ -75,13 +77,16 @@ const handleSubmit = async (e) => {
   setFormSubmitted(false);
 
   try {
-    const response = await fetch("http://localhost:8080/api/business", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/business`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -90,11 +95,11 @@ const handleSubmit = async (e) => {
 
     const result = await response.json();
     console.log("API Response:", result);
-    toast.success('Business registered successfully!');
+    toast.success("Business registered successfully!");
     setFormSubmitted(true);
   } catch (error) {
     console.error("Error submitting form:", error);
-    toast.error(error.message || 'Failed to save business');
+    toast.error(error.message || "Failed to save business");
   }
 };
 
