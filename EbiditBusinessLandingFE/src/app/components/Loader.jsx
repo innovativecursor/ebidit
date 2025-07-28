@@ -1,13 +1,17 @@
 'use client';
-import React from 'react'
+
+import React from 'react';
 import Image from 'next/image';
+import PropTypes from 'prop-types';
 import elogo from '../EnquiryForm/images/e-bid_app_1_red.png'
 
-const loading = () => {
+const Loader = ({ fullscreen = true, text = 'Loading...' }) => {
   return (
-    <div className={`${
+    <div
+      className={`${
         fullscreen ? 'h-screen' : 'h-full'
-      } w-full flex flex-col items-center justify-center bg-white z-50`}>
+      } w-full flex flex-col items-center justify-center bg-white z-50`}
+    >
       <Image
         src={elogo} 
         alt="Ebidit Logo"
@@ -17,8 +21,12 @@ const loading = () => {
       />
       <p className="mt-4 text-gray-600 text-lg animate-pulse">{text}</p>
     </div>
-  )
-}
+  );
+};
 
-export default loading
+Loader.propTypes = {
+  fullscreen: PropTypes.bool,
+  text: PropTypes.string,
+};
 
+export default Loader;

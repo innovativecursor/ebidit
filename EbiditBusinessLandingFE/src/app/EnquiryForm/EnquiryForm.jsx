@@ -7,6 +7,7 @@ import Lottie from 'lottie-react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { toast, Toaster } from 'react-hot-toast';
+import Loader from '../components/Loader'
 
 import {
   Globe, User, Mail, MapPin, Briefcase, Building2, LocateIcon,
@@ -28,6 +29,8 @@ const languages = [
 ];
 
 const EnquiryForm = () => {
+  const [loading, setLoading] = useState(false);
+
   const { t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -75,6 +78,7 @@ const EnquiryForm = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
   setFormSubmitted(false);
+  setLoading(true); 
 
   try {
     const response = await fetch(
@@ -100,10 +104,16 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error("Error submitting form:", error);
     toast.error(error.message || "Failed to save business");
+  } finally {
+    setLoading(false);
   }
 };
 
   return (
+  <>  
+    {loading ? (
+      <Loader />
+    ) : (  
     <div className="min-h-screen bg-white/90 backdrop-blur-md shadow-md flex flex-col p-4">
       {/* Logo */}
       <div className=" flex justify-center items-center py-4 sm:py-6 px-4">
@@ -273,7 +283,7 @@ const handleSubmit = async (e) => {
         </div>
       </form>
 
-      {/* Success Message */}
+      {/* Toaster Message */}
       {formSubmitted && (
         <motion.div
           initial={{ scale: 0 }}
@@ -302,6 +312,8 @@ const handleSubmit = async (e) => {
         }}
       />
     </div>
+    )}
+  </>  
   );
 };
 
