@@ -29,6 +29,7 @@ func main() {
 	}))
 
 	router.POST("/api/business", handler.SaveBusiness)
+	router.GET("/api/business", handler.GetAllBusinesses)
 
 	port := os.Getenv("PORT")
 	if port == "" {

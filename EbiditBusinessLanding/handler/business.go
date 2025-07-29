@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
 	"ebidit-business-landing/db"
@@ -35,4 +36,23 @@ func SaveBusiness(c *gin.Context) {
 		"message": "Business registered successfully",
 		"id":      business.ID.Hex(),
 	})
+}
+
+func GetAllBusinesses(c *gin.Context) {
+	collection := db.GetCollection(os.Getenv("MONGO_DB"), "business_landing")
+
+	cursor, err := collection.Find(context.Background(), bson.M{})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve data"})
+		return
+	}
+	defer cursor.Close(context.Background())
+
+	var businesses []model.Business
+	if err := cursor.All(context.Background(), &businesses); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error reading data"})
+		return
+	}
+
+	c.JSON(http.StatusOK, businesses)
 }
