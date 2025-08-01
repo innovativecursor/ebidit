@@ -13,7 +13,7 @@ import {
   Globe, User, Mail, MapPin, Briefcase, Building2, LocateIcon,
 } from 'lucide-react';
 
-import animationData from '../lottie/bidding.json';
+import animationData from '../lottie/hammer.json';
 import logo from './images/E-bid_red.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n/i18n';
