@@ -30,6 +30,7 @@ func main() {
 
 	router.POST("/api/business", handler.SaveBusiness)
 	router.GET("/api/business", handler.GetAllBusinesses)
+	router.DELETE("/api/business/:id", handler.DeleteBusiness)
 
 	port := os.Getenv("PORT")
 	if port == "" {
