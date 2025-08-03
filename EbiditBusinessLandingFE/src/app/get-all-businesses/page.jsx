@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Loader2, Eye } from 'lucide-react';
+import { Loader2, Eye, Trash2 } from 'lucide-react';
 import Modal from '../components/Modal';
 
 const GetAllBusinesses = () => {
@@ -9,6 +9,7 @@ const GetAllBusinesses = () => {
   const [loading, setLoading] = useState(true);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
 
+  // Fetch all businesses
   useEffect(() => {
     const fetchBusinesses = async () => {
       try {
@@ -24,6 +25,31 @@ const GetAllBusinesses = () => {
 
     fetchBusinesses();
   }, []);
+
+  // Delete handler
+  const handleDelete = async (id, businessName) => {
+    const confirmed = window.confirm(`Are you sure you want to delete "${businessName}"?`);
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(`http://localhost:8080/api/business/${id}`, {
+        method: 'DELETE',
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(`Deleted: ${businessName}`);
+        setBusinesses(prev => prev.filter(b => b._id !== id));
+      } else {
+        console.error('Delete failed:', data);
+        alert(`Failed to delete: ${data?.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert("Something went wrong while deleting.");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white p-6">
@@ -55,7 +81,7 @@ const GetAllBusinesses = () => {
                   <td className="p-3">{details.business_address?.country}</td>
                   <td className="p-3">{details.contact_info?.name}</td>
                   <td className="p-3">{details.contact_info?.phone}</td>
-                  <td className="p-3 pr-4">
+                  <td className="p-3 pr-4 flex items-center gap-4">
                     <button
                       onClick={() => setSelectedBusiness(details)}
                       className="flex items-center gap-1 text-green-500 hover:text-green-700 transition cursor-pointer"
@@ -63,6 +89,14 @@ const GetAllBusinesses = () => {
                     >
                       <Eye size={18} />
                       <span className="text-sm font-medium">View</span>
+                    </button>
+                    <button
+                      onClick={() => handleDelete(details.id, details.business_name)}
+                      className="flex items-center gap-1 text-red-500 hover:text-red-700 transition cursor-pointer"
+                      title="Delete Business"
+                    >
+                      <Trash2 size={18} />
+                      <span className="text-sm font-medium">Delete</span>
                     </button>
                   </td>
                 </tr>
