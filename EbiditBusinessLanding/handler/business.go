@@ -56,3 +56,30 @@ func GetAllBusinesses(c *gin.Context) {
 
 	c.JSON(http.StatusOK, businesses)
 }
+
+func DeleteBusiness(c *gin.Context) {
+	idParam := c.Param("id")
+
+	objID, err := primitive.ObjectIDFromHex(idParam)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID format"})
+		return
+	}
+
+	collection := db.GetCollection(os.Getenv("MONGO_DB"), "business_landing")
+	result, err := collection.DeleteOne(context.Background(), bson.M{"_id": objID})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete business"})
+		return
+	}
+
+	if result.DeletedCount == 0 {
+		c.JSON(http.StatusNotFound, gin.H{"message": "Business not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Business deleted successfully",
+		"id":      idParam,
+	})
+}
