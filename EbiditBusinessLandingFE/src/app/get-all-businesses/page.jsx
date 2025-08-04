@@ -32,12 +32,11 @@ const GetAllBusinesses = () => {
     if (!confirmed) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/api/business/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/business/${id}`, {
         method: 'DELETE',
       });
 
       const data = await res.json();
-
       if (res.ok) {
         alert(`Deleted: ${businessName}`);
         setBusinesses(prev => prev.filter(b => b._id !== id));
