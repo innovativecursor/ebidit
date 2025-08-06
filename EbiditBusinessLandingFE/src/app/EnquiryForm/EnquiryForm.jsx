@@ -17,6 +17,7 @@ import animationData from '../lottie/hammer.json';
 import logo from './images/E-bid_red.png';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../../i18n/i18n';
+import bgimage from '../EnquiryForm/images/Rectangle 29.png'
 
 const languages = [
   { code: 'en', label: '🇺🇸 English' },
@@ -114,49 +115,53 @@ const handleSubmit = async (e) => {
     {loading ? (
       <Loader />
     ) : (  
-    <div className="min-h-screen bg-white/90 backdrop-blur-md shadow-md flex flex-col p-4">
-      {/* Logo */}
+    <div className="min-h-screen bg-white text-black backdrop-blur-md shadow-md flex flex-col p-4">
+      {/* // <div className="relative min-h-screen bg-white overflow-hidden"> */}
+        <Image src={bgimage} alt='background' fill className='-z-10' />       
       <div className=" flex justify-center items-center py-4 sm:py-6 px-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="bg-gradient-to-br from-black via-gray-900 to-gray-800 bg-white/10 px-6 py-3 rounded-xl shadow-lg backdrop-blur-md border border-white/20"
+          className="px-6 py-3"
         >
           <Image
             src={logo}
             alt="E-Bid Logo"
             className="mx-auto max-w-[160px] w-full h-auto"
           />
+           <h1 className="text-2xl sm:text-3xl md:text-3xl font-extrabold text-black pt-5">
+            {t('Make_your')} <span className="px-1">BID</span>{t(' with')}
+          </h1>
         </motion.div>
       </div>
 
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-gradient-to-br from-black via-gray-900 to-gray-800 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-[90rem] w-full mx-auto bg-white/10 px-4 py-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl text-white backdrop-blur-lg"
+        className="bg-red-50 max-w-[55rem] w-full mx-auto px-4 py-6 sm:p-8 md:px-30 rounded-2xl shadow-2xl text-black"
       >
         {/* Column 1 */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="col-span-1 flex flex-col items-center justify-center text-center space-y-4"
+          className="flex justify-end space-y-4"
         >
-          <Lottie animationData={animationData} loop className="w-full h-30 sm:h-50 md:h-70" />
+          {/* <Lottie animationData={animationData} loop className="w-full h-30 sm:h-50 md:h-70" />
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white">
             {t('Make_your')} <span className="text-red-600 pr-1">BID</span>{t(' with')}
           </h2>
-          <Image src={logo} alt='logo' width={180} className='my-4' />
-          <div className="relative mt-2 w-full max-w-[200px]">
-            <Globe className="absolute left-2 top-2 text-white" size={16} />
+          <Image src={logo} alt='logo' width={180} className='my-4' /> */}
+          <div className="relative my-2 w-full max-w-[200px]">
+            <Globe className="absolute left-2 top-1.25 text-white" size={16} />
             <select
               value={selectedLanguage}
               onChange={(e) => {
                 setSelectedLanguage(e.target.value);
                 i18n.changeLanguage(e.target.value);
               }}
-              className="w-full pl-6 pr-3 py-1 rounded bg-gray-700 text-white text-sm border border-white/20"
+              className="w-full pl-6 pr-3 py-1 rounded bg-black text-white text-sm border border-white/20"
             >
               {languages.map((lang) => (
                 <option key={lang.code} value={lang.code}>
@@ -172,29 +177,90 @@ const handleSubmit = async (e) => {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="space-y-4"
+          className="space-y-3"
         >
-          <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2">{t('Business_Details')}</h3>
-          <FloatingInput icon={<Building2 size={18} />} placeholder={t('business_name')} value={formData.business_name} onChange={(e) => handleInputChange(null, 'business_name', e.target.value)} />
-          <FloatingInput icon={<MapPin size={18} />} placeholder={t('address_line1')} value={formData.business_address.address_line1} onChange={(e) => handleInputChange('business_address', 'address_line1', e.target.value)} />
-          <FloatingInput icon={<MapPin size={18} />} placeholder={t('address_line2')} value={formData.business_address.address_line2} onChange={(e) => handleInputChange('business_address', 'address_line2', e.target.value)} />
-          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('city')} value={formData.business_address.city} onChange={(e) => handleInputChange('business_address', 'city', e.target.value)} />
-          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('state')} value={formData.business_address.state} onChange={(e) => handleInputChange('business_address', 'state', e.target.value)} />
-          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('country')} value={formData.business_address.country} onChange={(e) => handleInputChange('business_address', 'country', e.target.value)} />
-          <FloatingInput icon={<LocateIcon size={18} />} placeholder={t('postal_code')} value={formData.business_address.postal_code} onChange={(e) => handleInputChange('business_address', 'postal_code', e.target.value)} />
-        <FloatingInput icon={<Briefcase size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} />
-
-          {/* New Field: Role of Business */}
+          <h3 className="text-xl text-black font-extrabold pb-1 mb-2">{t('Business_Details')}</h3>
+          <div className='grid grid-cols-2'>
+            <div className='col-span-2'>
+              <div className=''><FloatingInput icon={<Building2 className='text-black' size={18} />} placeholder={t('business_name')} value={formData.business_name} onChange={(e) => handleInputChange(null, 'business_name', e.target.value)} /></div>
+              <div className='my-3'><FloatingInput icon={<Briefcase className='text-black' size={18} />} placeholder={t('business_type')} value={formData.business_type} onChange={(e) => handleInputChange(null, 'business_type', e.target.value)} /></div>
+              <div className='my-3'><FloatingInput icon={<MapPin className='text-black' size={18} />} placeholder={t('address_line1')} value={formData.business_address.address_line1} onChange={(e) => handleInputChange('business_address', 'address_line1', e.target.value)} /></div>
+              <div className='my-3'><FloatingInput icon={<MapPin className='text-black' size={18} />} placeholder={t('address_line2')} value={formData.business_address.address_line2} onChange={(e) => handleInputChange('business_address', 'address_line2', e.target.value)} /></div>
+            </div>
+            <div className='mr-2'>
+              <FloatingInput icon={<LocateIcon className='text-black' size={18} />} placeholder={t('city')} value={formData.business_address.city} onChange={(e) => handleInputChange('business_address', 'city', e.target.value)} />
+            </div>
+            <div className='ml-2'>
+              <FloatingInput icon={<LocateIcon className='text-black' size={18} />} placeholder={t('state')} value={formData.business_address.state} onChange={(e) => handleInputChange('business_address', 'state', e.target.value)} />
+            </div>
+            <div className='mt-3 mr-2'>
+              <FloatingInput icon={<LocateIcon className='text-black' size={18} />} placeholder={t('country')} value={formData.business_address.country} onChange={(e) => handleInputChange('business_address', 'country', e.target.value)} />
+            </div>
+            <div className='mt-3 ml-2'>
+              <FloatingInput icon={<LocateIcon className='text-black' size={18} />} placeholder={t('postal_code')} value={formData.business_address.postal_code} onChange={(e) => handleInputChange('business_address', 'postal_code', e.target.value)} />
+            </div>
+          </div>
+            <div className="relative">
+              {/* <Briefcase className="absolute left-3 top-3 text-black" size={18} /> */}
+              <FloatingInput
+                name="primary_business_activity"
+                rows="3"
+                placeholder={t('primary_business_activity')}
+                value={formData.primary_business_activity}
+                onChange={(e) => handleInputChange(null, 'primary_business_activity', e.target.value)}
+                required
+                className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-300 focus:scale-105 transition-all duration-150"
+              />
+            </div>
+            <div className="relative bg-white rounded-md">
+              {/* <Briefcase className="absolute left-3 top-2.5 text-black" size={18} /> */}
+              <select
+                value={formData.business_role}
+                onChange={(e) => handleInputChange(null, 'business_role', e.target.value)}
+                className="w-full pl-2 py-2 text-black rounded-md border border-gray-300 focus:ring-2 focus:ring-red-600"
+              >
+                <option value="">{t('role_of_business')}</option>
+                <option value="Manufacturer">{t('Manufacturer')}</option>
+                <option value="Supplier">{t('Supplier')}</option>
+                <option value="Exporter">{t('Exporter')}</option>
+                <option value="Impoter">{t('Impoter')}</option>
+                <option value="Wholesaler">{t('Wholesaler')}</option>
+                <option value="Distributor">{t('Distributor')}</option>
+                <option value="Retailer">{t('Retailer')}</option>
+                <option value="Trader">{t('Trader')}</option>
+                <option value="Other">{t('Other')}</option> 
+              </select>
+            </div>
+            <div className="relative bg-white rounded-md">
+              {/* <Briefcase className="absolute left-3 top-2.5 text-black" size={18} /> */}
+              <select
+                value={formData.business_industry}
+                onChange={(e) => handleInputChange(null, 'business_industry', e.target.value)}
+                className="w-full pl-2 py-2 text-black rounded-md border border-gray-300 focus:ring-2 focus:ring-red-600"
+                >
+                <option value="">{t('industry_of_business')}</option>
+                <option value="Agriculture">{t('Agriculture')}</option>
+                <option value="FMCG">{t('FMCG')}</option>
+                <option value="Construction">{t('Construction')}</option>
+                <option value="Textiles">{t('Textiles')}</option>
+                <option value="Automotive">{t('Automotive')}</option>
+                <option value="Food_&_Beverages">{t('Food_&_Beverages')}</option>
+                <option value="Pharmaceuticals">{t('Pharmaceuticals')}</option>
+                <option value="Electronics">{t('Electronics')}</option>
+                <option value="Furniture_&_Wood">{t('Furniture_&_Wood')}</option>
+                <option value="Chemicals">{t('Chemicals')}</option>
+                <option value="Other">{t('Other')}</option>
+              </select>
+          </div>
         </motion.div>
 
-        {/* Column 3 */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="space-y-4 mt-0 md:mt-9.5"
+          className="space-y-3 mt-0 md:mt-9.5"
         >
-          <div className="relative">
+          {/* <div className="relative">
             <Briefcase className="absolute left-3 top-3 text-white" size={18} />
             <FloatingInput
               name="primary_business_activity"
@@ -226,7 +292,7 @@ const handleSubmit = async (e) => {
             </select>
           </div>
 
-          {/* New Field: Industry of Business */}
+          {/* New Field: Industry of Business 
 
           <div className="relative">
             <Briefcase className="absolute left-3 top-3 text-white" size={18} />
@@ -248,11 +314,11 @@ const handleSubmit = async (e) => {
               <option value="Chemicals">{t('Chemicals')}</option>
               <option value="Other">{t('Other')}</option>
             </select>
-          </div>
-          <h3 className="text-xl font-semibold text-red-300 pb-1 mb-2 md:mt-13">{t('Personal_Details')}</h3>
-          <FloatingInput icon={<User size={18} />} placeholder={t('name')} value={formData.contact_info.name} onChange={(e) => handleInputChange('contact_info', 'name', e.target.value)} />
-          <FloatingInput icon={<Briefcase size={18} />} placeholder={t('designation')} value={formData.contact_info.designation} onChange={(e) => handleInputChange('contact_info', 'designation', e.target.value)} />
-          <div className="relative w-full">
+          </div> */}
+          <h3 className="text-xl font-extrabold text-black pb-1 mb-2 md:mt-7">{t('Personal_Details')}</h3>
+          <FloatingInput icon={<User className='text-black' size={18} />} placeholder={t('name')} value={formData.contact_info.name} onChange={(e) => handleInputChange('contact_info', 'name', e.target.value)} />
+          <FloatingInput icon={<Briefcase className='text-black' size={18} />} placeholder={t('designation')} value={formData.contact_info.designation} onChange={(e) => handleInputChange('contact_info', 'designation', e.target.value)} />
+          <div className="relative w-full rounded-md border border-gray-300">
             <PhoneInput
               country={'in'}
               value={formData.contact_info.phone}
@@ -260,23 +326,24 @@ const handleSubmit = async (e) => {
               inputStyle={{
                 width: '100%',
                 paddingLeft: '44px',
-                backgroundColor: 'transparent',
+                // paddingTop: '',
+                backgroundColor: 'white',
                 border: '1px solid rgba(255,255,255,0.2)',
                 borderRadius: '0.5rem',
-                color: 'white',
+                color: 'black',
               }}
               buttonStyle={{ backgroundColor: 'transparent', border: 'none' }}
               containerStyle={{ width: '100%' }}
             />
           </div>
-          <FloatingInput icon={<Mail size={18} />} placeholder={t('email')} value={formData.contact_info.email} onChange={(e) => handleInputChange('contact_info', 'email', e.target.value)} type="email" />
+          <FloatingInput icon={<Mail className='text-black' size={18} />} placeholder={t('email')} value={formData.contact_info.email} onChange={(e) => handleInputChange('contact_info', 'email', e.target.value)} type="email" />
         </motion.div>
 
         {/* Submit Button */}
-        <div className="col-span-1 sm:col-span-2 md:col-span-3 flex justify-center px-4">
+        <div className="flex justify-center mt-15 my-6">
           <button
             type="submit"
-            className="px-10 py-3 w-full max-w-xs bg-red-500 hover:bg-red-400 text-white rounded-xl font-semibold text-lg shadow-md transition duration-200"
+            className="px-10 py-3 w-full bg-red-800 hover:bg-red-700 text-white rounded font-semibold text-lg shadow-md transition duration-200"
           >
             {t('Register')}
           </button>
@@ -319,13 +386,11 @@ const handleSubmit = async (e) => {
 
 // Floating input field
 const FloatingInput = ({ icon, ...props }) => (
-  <div className="relative">
-    <div className="absolute left-3 top-3 text-white">{icon}</div>
-    <input
-      {...props}
-      className="w-full pl-10 py-2 bg-transparent border border-white/20 rounded-lg focus:ring-2 focus:ring-red-400 focus:scale-105 transition-all duration-150"
-    />
-  </div>
+  <input
+    {...props}
+    className="w-full px-4 py-2 rounded-md border border-gray-300 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-red-600"
+  />
 );
+
 
 export default EnquiryForm;
