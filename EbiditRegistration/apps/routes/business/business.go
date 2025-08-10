@@ -9,5 +9,6 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	r.POST("/api/business/register", handler.RegisterBusiness)
+	r.POST("/api/business/user", handler.AddBusinessUser)
 	return r
 }

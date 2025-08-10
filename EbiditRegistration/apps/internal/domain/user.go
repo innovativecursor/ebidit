@@ -13,7 +13,7 @@ type User struct {
 	Phone       string             `json:"phone" binding:"required"`
 	Email       string             `json:"email" binding:"required,email"`
 	Password    string             `json:"password" binding:"required"`
-	BusinessID  primitive.ObjectID `json:"business_id"`
-	IsRoot      bool               `json:"isRoot"`
-	CreatedAt   time.Time          `json:"created_at"`
+	BusinessID  primitive.ObjectID `bson:"businessid" json:"businessid" binding:"required"`
+	IsRoot      bool               `json:"isroot" bson:"isroot"`
+	CreatedAt   time.Time          `json:"created_at" bson:"created_at"`
 }
