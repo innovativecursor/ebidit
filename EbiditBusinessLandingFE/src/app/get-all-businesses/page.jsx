@@ -90,7 +90,7 @@ const GetAllBusinesses = () => {
                       <span className="text-sm font-medium">View</span>
                     </button>
                     <button
-                      onClick={() => handleDelete(details.id, details.business_name)}
+                      onClick={() => handleDelete(details._id, details.business_name)}
                       className="flex items-center gap-1 text-red-500 hover:text-red-700 transition cursor-pointer"
                       title="Delete Business"
                     >
