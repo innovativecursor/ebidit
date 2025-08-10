@@ -39,7 +39,7 @@ const GetAllBusinesses = () => {
       const data = await res.json();
       if (res.ok) {
         alert(`Deleted: ${businessName}`);
-        setBusinesses(prev => prev.filter(b => b._id !== id));
+        setBusinesses(prev => prev.filter(b => b.id !== id));
       } else {
         console.error('Delete failed:', data);
         alert(`Failed to delete: ${data?.error || 'Unknown error'}`);
@@ -90,7 +90,7 @@ const GetAllBusinesses = () => {
                       <span className="text-sm font-medium">View</span>
                     </button>
                     <button
-                      onClick={() => handleDelete(details._id, details.business_name)}
+                      onClick={() => handleDelete(details.id, details.business_name)}
                       className="flex items-center gap-1 text-red-500 hover:text-red-700 transition cursor-pointer"
                       title="Delete Business"
                     >
