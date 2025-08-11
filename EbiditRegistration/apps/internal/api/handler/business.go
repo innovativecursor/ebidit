@@ -61,7 +61,7 @@ func RegisterBusiness(c *gin.Context) {
 	// 3. Insert User Info
 	user := req.UserInfo
 	user.ID = primitive.NewObjectID()
-	user.BusinessID = business.ID
+	user.BusinessID = &business.ID
 	user.IsRoot = true
 	// Hash the password before storing
 	hashedPwd, err := utils.HashPassword(req.UserInfo.Password)

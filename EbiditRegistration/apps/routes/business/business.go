@@ -1,4 +1,4 @@
-package routes
+package business_routes
 
 import (
 	"ebidit-registration/apps/internal/api/handler"
@@ -6,9 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
-	r := gin.Default()
+func SetupRouter(r *gin.Engine) {
 	r.POST("/api/business/register", handler.RegisterBusiness)
 	r.POST("/api/business/user", handler.AddBusinessUser)
-	return r
 }
