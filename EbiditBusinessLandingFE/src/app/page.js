@@ -1,12 +1,15 @@
-// src/app/page.js (or .jsx)
-'use client';
-
-import dynamic from 'next/dynamic';
-
-const EnquiryForm = dynamic(() => import('../app/EnquiryForm/EnquiryForm'), {
-  ssr: false, // ✅ Now this is allowed since we marked file as 'use client'
-});
+import HeroSection from "./components/HeroSection";
+import LiveAuctions from "./components/LiveAuctions";
+import BenefitsSection from "./components/BenefitsSection";
+import ListRequirementForm from "./components/ListRequirementForm";
 
 export default function HomePage() {
-  return <EnquiryForm />;
+  return (
+    <main className="flex min-h-screen flex-col bg-slate-950 text-white">
+      <HeroSection />
+      <LiveAuctions />
+      <BenefitsSection />
+      <ListRequirementForm />
+    </main>
+  );
 }
